@@ -1,0 +1,55 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cake",
+    "cococakes:golden_cake",
+    {
+      "id": "neapolitan:adzuki_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:chocolate_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:vanilla_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:mint_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:chocolate_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:strawberry_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:banana_cake",
+      "required": false
+    },
+    {
+      "id": "seasonals:pumpkin_cake",
+      "required": false
+    },
+    {
+      "id": "seasonals:sweet_berry_cake",
+      "required": false
+    },
+    {
+      "id": "cococakes:aloe_cake",
+      "required": false
+    },
+    {
+      "id": "cococakes:passionfruit_cake",
+      "required": false
+    },
+    {
+      "id": "cococakes:yucca_cake",
+      "required": false
+    }
+  ]
+}

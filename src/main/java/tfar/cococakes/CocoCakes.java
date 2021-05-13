@@ -21,6 +21,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import tfar.cococakes.config.CocoCakesConfig;
+import tfar.cococakes.datagen.DataGenerators;
 
 @Mod(CocoCakes.MODID)
 public class CocoCakes {
@@ -31,8 +32,9 @@ public class CocoCakes {
 
     public CocoCakes() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::setupDataGenerator);
         MinecraftForge.EVENT_BUS.addListener(this::onBlockRightClick);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CocoCakesConfig.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, CocoCakesConfig.SERVER_SPEC);
     }
     
     private void setup(final FMLCommonSetupEvent event) {

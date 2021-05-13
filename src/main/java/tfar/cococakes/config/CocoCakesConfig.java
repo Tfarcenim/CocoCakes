@@ -12,21 +12,20 @@ import org.apache.commons.lang3.tuple.Pair;
 import tfar.cococakes.CocoCakes;
 
 @Mod.EventBusSubscriber(modid = CocoCakes.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class CocoCakesConfig
-{
-    public static final ClientConfig CLIENT;
-    public static final ForgeConfigSpec CLIENT_SPEC;
+public class CocoCakesConfig {
+    public static final ServerConfig SERVER;
+    public static final ForgeConfigSpec SERVER_SPEC;
     private static boolean canHarvestCakes;
     private static int cakeMaxStackSize;
     
     public static void bakeConfig() {
-        CocoCakesConfig.canHarvestCakes = CocoCakesConfig.CLIENT.canHarvestCakes.get();
-        CocoCakesConfig.cakeMaxStackSize = CocoCakesConfig.CLIENT.cakeMaxStackSize.get();
+        CocoCakesConfig.canHarvestCakes = CocoCakesConfig.SERVER.canHarvestCakes.get();
+        CocoCakesConfig.cakeMaxStackSize = CocoCakesConfig.SERVER.cakeMaxStackSize.get();
     }
     
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
-        if (configEvent.getConfig().getSpec() == CocoCakesConfig.CLIENT_SPEC) {
+        if (configEvent.getConfig().getSpec() == CocoCakesConfig.SERVER_SPEC) {
             bakeConfig();
             onUpdateModConfig();
         }
@@ -41,9 +40,9 @@ public class CocoCakesConfig
     }
     
     static {
-        final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
-        CLIENT_SPEC = specPair.getRight();
-        CLIENT = specPair.getLeft();
+        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
+        SERVER_SPEC = specPair.getRight();
+        SERVER = specPair.getLeft();
     }
 
     public static void onUpdateModConfig() {

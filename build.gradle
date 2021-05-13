@@ -9,6 +9,9 @@ buildscript {
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
+plugins {
+    id "com.wynprice.cursemaven" version "2.1.5"
+}
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
@@ -35,7 +38,8 @@ minecraft {
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
-            property 'mixin.env.disableRefMap', 'true'
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
 
 
@@ -43,22 +47,22 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                cococakes {
                     source sourceSets.main
                 }
             }
         }
 
         server {
-            property 'mixin.env.disableRefMap', 'true'
             workingDirectory project.file('run')
-
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                cococakes {
                     source sourceSets.main
                 }
             }
@@ -66,11 +70,15 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
             //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+            args '--mod', 'cococakes', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
             mods {
-                examplemod {
+                cococakes {
                     source sourceSets.main
                 }
             }
@@ -89,6 +97,9 @@ repositories{
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
+    }
+    maven {
+        url "https://maven.jaackson.me"
     }
     jcenter()
     mavenCentral()
@@ -112,8 +123,18 @@ dependencies {
     // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
     // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
 
+    implementation fg.deobf("com.minecraftabnormals:abnormals-core:${project.mc_version}-${project.abnormalsCore}")
+
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    compile fg.deobf("curse.maven:neapolitan-382016:3221772")
+
+    //depends on abnormal core + neapolitan
+    compile fg.deobf("curse.maven:seasonals-416471:3256395")
+
+    //also depends on abnormal core + neapolitan
+    compile fg.deobf("curse.maven:peculiars-418551:3159583")
+
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
